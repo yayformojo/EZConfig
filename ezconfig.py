@@ -9,10 +9,6 @@ class EZConfig():
         self.dbname = dbname
         self.conn = sqlite3.Connection(self.dbname)
         self.cursor = self.conn.cursor()
-        # self.cursor("analyze;")
-        # self.cursor("PRAGMA optimize;")
-        # self.cursor.execute(pragma sychronous = NORMAL;)
-        # pragma synchronous = FULL; <-- high risk
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS config(
             key TEXT PRIMARY KEY,
             value TEXT,
@@ -43,7 +39,6 @@ class EZConfig():
             return self.value_if_null
     
     def read_all(self, output=None):
-        # Should we append the results of get_config_file() to this list?
         results = self.cursor.execute("SELECT key, value, modified FROM config ORDER BY key;").fetchall()
         if output == 'p':
             print(f'Config in {self.get_config_file()}:')
