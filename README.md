@@ -12,8 +12,8 @@ The config values can be read all-at-once, or individually.
 |-----------------------|---|
 | write(key, value)     | |
 | read(key, value)      | |
-| read_all(output=None)  | Reads all config values at once, storing them in a dictionary.<br>Argument is optional.  Use output='p' to print,<br>used in debugging mostly. |
-|delete(key, delete_level='row'| Use delete_level='value_only'<br>to delete the value, setting<br> it to Null, but leaving the key. |
+| read_all(output=None)  | Argument is optional.<br>Reads all config values at once, storing them in a dictionary.<br>Use output='p' to print the config (used in debugging mostly). |
+|delete(key, delete_level='row')| Argument is optional.  Use delete_level='value_only'<br>to delete the value, setting<br> it to Null, but leaving the key. |
 
 
 When `read_all(output='p')` is used, the output will include the modified timestamp.  This timestamp is stored in the database when the key-value pair is created, and updated each time the key is updated.
