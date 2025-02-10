@@ -1,13 +1,13 @@
 
 class EZConfig():
-    def __init__(self, dbname, db_path=None):
-        self.dbname = dbname    
-        self.setup_cursor(self.dbname)
+    def __init__(self, dbname):
+        self._dbname = dbname    
+        self.setup_cursor(self._dbname)
     
     def setup_cursor(self, dbname):
         import sqlite3
-        self.dbname = dbname
-        self.conn = sqlite3.Connection(self.dbname)
+        self._dbname = dbname
+        self.conn = sqlite3.Connection(self._dbname)
         self.cursor = self.conn.cursor()
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS config(
             key TEXT PRIMARY KEY,
@@ -23,8 +23,9 @@ class EZConfig():
         self.cursor.execute("""INSERT OR REPLACE INTO config(key, value) VALUES(?,?);""",(self.key, self.value))
         self.conn.commit()
     
-    def get_config_file(self):
-        return self.dbname
+    @property
+    def dbname(self):
+        return self._dbname
     
     def read(self, key, value_if_null=None):
         self.key = key
@@ -40,7 +41,7 @@ class EZConfig():
     def read_all(self, output=None):
         results = self.cursor.execute("SELECT key, value, modified FROM config ORDER BY key;").fetchall()
         if output == 'p':
-            print(f'Config in {self.get_config_file()}:')
+            print(f'Config in {self.dbname}:')
             for line in results:
                 print(line)
         else:
