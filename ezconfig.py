@@ -13,7 +13,8 @@ class EZConfig():
             key TEXT PRIMARY KEY,
             value TEXT,
             modified TIMESTAMP DEFAULT current_timestamp)""")
-        self.cursor.execute("""create trigger if not exists timestamp_update after update on config for each row begin update config set modified=current_timestamp where rowid=OLD.rowid;end;""")
+        self.cursor.execute("""CREATE TRIGGER IF NOT EXISTS timestamp_update AFTER UPDATE ON config FOR EACH ROW BEGIN 
+                            UPDATE config SET modified=current_timestamp WHERE rowid=OLD.rowid;end;""")
         self.conn.commit()
         
     def write(self, key, value):
@@ -25,17 +26,15 @@ class EZConfig():
     def get_config_file(self):
         return self.dbname
     
-    def read(self, key, value_if_null=None): #include_key=False
+    def read(self, key, value_if_null=None):
         self.key = key
         self.value_if_null = value_if_null
-        # Make sure we return the value_if_null, below
         ret_key = self.cursor.execute("SELECT value FROM config WHERE key=?",(self.key,)).fetchone()
         if ret_key:
             return ret_key[0]
         else:
             if self.value_if_null == 'error':
                 raise KeyError(f'Key {self.key} not found')
-            
             return self.value_if_null
     
     def read_all(self, output=None):
@@ -96,6 +95,6 @@ if __name__ == '__main__':
      =======================================================
      cfg_info = myconfig.read_all()
  
-     * See README.md file for full usage details, including audit trail, and saving application state. 
+     * See README.md file for full usage details. 
     """)
     
