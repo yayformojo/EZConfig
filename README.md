@@ -72,8 +72,8 @@ A column in the database called `modified` is stored in the database when the ke
 
 The database is only one table.  You can use the SQLite client tool `sqlite3` to use SQL directly on the database.
 ```sql
-SELECT * from config;
+SELECT * FROM config;
 
-SELECT * from sqlite_master; # Shows the schema, including the trigger to update the 'modified' timestamp.
+SELECT * FROM sqlite_master; # Shows the schema, including the trigger to update the 'modified' timestamp.
 ```
 
