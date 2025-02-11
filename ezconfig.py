@@ -74,7 +74,7 @@ if __name__ == '__main__':
      * Simple, clean syntax
      * Can read config by key or all at once
      * Config is stored in a SQLite Database, which can be queried with SQL
-     * Methods:  write(), read(), read_all(), delete(), get_config_file()
+     * Methods:  write(), read(), read_all(), delete().
      
      Using ezConfig
      ==============
