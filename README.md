@@ -71,7 +71,7 @@ mydb = mycfg.dbname
 A column in the database called `modified` is stored in the database when the key-value pair is created, and updated each time the key is updated.
 
 The database is only one table.  You can use the SQLite client tool `sqlite3` to use SQL directly on the database.
-```
+```sql
 SELECT * from config;
 
 SELECT * from sqlite_master; # Shows the schema, including the trigger to update the 'modified' timestamp.
