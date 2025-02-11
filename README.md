@@ -1,8 +1,8 @@
 # EZConfig
 **Simple application configuration management module, using SQLite.**
 
-Intended to be as concise as possible in usage, and simple in code, as a learning tool.<br>
-Supports an easy, key-value store which allows loading the config in its entirety (as a python dict), or by individual key. 
+This module is intended to be as concise as possible in usage, with simple source code, to be used as a learning tool.<br>
+EZConfig supports an easy to use key-value store which allows loading the config in its entirety (as a python dict), or by individual key. 
 
 The config values can be read all-at-once, or individually.  
 
