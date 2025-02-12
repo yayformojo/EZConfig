@@ -1,0 +1,6 @@
+This is a fake placeholder database file used for testing.
+
+This should raise:
+sqlite3.DatabaseError: file is not a database
+
+This is tested in the test function "test_invalid_sqlite_file_fails()"
