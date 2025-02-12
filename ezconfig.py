@@ -1,14 +1,19 @@
-
 class EZConfig():
-    def __init__(self, dbname):
+    def __init__(self, dbname): 
         self._dbname = dbname    
         self.setup_cursor(self._dbname)
     
     def setup_cursor(self, dbname):
         import sqlite3
+        self.conn = None # If the try below fails, the conn and cursor wont exist
+        self.cursor = None
         self._dbname = dbname
-        self.conn = sqlite3.Connection(self._dbname)
-        self.cursor = self.conn.cursor()
+        try:
+            self.conn = sqlite3.Connection(self._dbname)
+        except sqlite3.Error as err:
+            print(f'SQLite error creating EZConfig database {dbname}: {err}')
+            raise
+        self.cursor = self.conn.cursor() 
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS config(
             key TEXT PRIMARY KEY,
             value TEXT,
@@ -20,6 +25,10 @@ class EZConfig():
     def write(self, key, value):
         self.key = key
         self.value = value
+        if isinstance(self.key, (bytes, bytearray)):
+            raise ValueError("Key cannot be binary (b'0x0020', etc)")
+        if self.key is None or self.key == '':
+            raise ValueError("Key cannot be None type or an empty string")
         self.cursor.execute("""INSERT OR REPLACE INTO config(key, value) VALUES(?,?);""",(self.key, self.value))
         self.conn.commit()
     
@@ -52,17 +61,20 @@ class EZConfig():
         will not be deleted.  By default, the entire row will be deleted."""
         self.key = key
         self.delete_level = delete_level
-        if self.delete_level == 'value_only':
+        if self.delete_level == 'value_only': 
             self.cursor.execute("UPDATE config SET value=Null WHERE key=?",(self.key,))
-        elif delete_level == 'row':
+        elif self.delete_level == 'row':
             self.cursor.execute("DELETE FROM config WHERE key=?",(self.key,))
+        else:
+            raise ValueError(f'Invalid delete_level: {self.delete_level}.  Must be blank (defaults to row), row, or value_only.')
         self.conn.commit()
     
     def __del__(self):
-        self.conn.close()
+        if hasattr(self, 'conn') and self.conn is not None:
+            self.conn.close()
     
     
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
     print(r"""
                   ___                __  _        
       ___  ____  / __\ ___   _ __   / _|(_)  __ _ 
@@ -74,7 +86,7 @@ if __name__ == '__main__':
      * Simple, clean syntax
      * Can read config by key or all at once
      * Config is stored in a SQLite Database, which can be queried with SQL
-     * Methods:  write(), read(), read_all(), delete().
+     * Methods:  write(), read(), read_all(), delete(), get_config_file()
      
      Using ezConfig
      ==============
