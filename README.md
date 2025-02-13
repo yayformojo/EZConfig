@@ -1,10 +1,13 @@
 # EZConfig
-**Simple application configuration management module, using SQLite.**
+**Quick and easy to add**
+**Key-Value store for your Configuration or State, in a lightweight, portable SQLite database file**
 
-This module is intended to be as concise as possible in usage, with simple source code, to be used as a learning tool.<br>
-EZConfig supports an easy to use key-value store which allows loading the config in its entirety (as a python dict), or by individual key. 
-
-The config values can be read all-at-once, or individually.  
+ - EZConfig uses compact, intuitive syntax.
+ - The source code should be readable and easy to follow: It was written with simplicity in mind over comprehensive features.
+ - You can use it in place of modules like Configparser, or manually keeping information in YAML/text files.
+ - Extend it for your own use, or import it as a small library whenever you need to store State or Configuration (or both).
+ - You can query the database file with SQL: no parsing files in various formats.
+ - Keys can be read individually and assigned to variables, or they can be read all-at-once as a dictionary.  
 
 ## Usage Examples
 
