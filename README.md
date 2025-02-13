@@ -1,12 +1,11 @@
 # EZConfig
-**Quick and easy to add**
-**Key-Value store for your Configuration or State, in a lightweight, portable SQLite database file**
+**Quick and easy key-value store for your Configuration or State**
 
  - EZConfig uses compact, intuitive syntax.
  - The source code should be readable and easy to follow: It was written with simplicity in mind over comprehensive features.
  - You can use it in place of modules like Configparser, or manually keeping information in YAML/text files.
  - Extend it for your own use, or import it as a small library whenever you need to store State or Configuration (or both).
- - You can query the database file with SQL: no parsing files in various formats.
+ - The database is SQLite.  One file per EZConfig instance.  You can query the database file with SQL - no parsing files in various formats.
  - Keys can be read individually and assigned to variables, or they can be read all-at-once as a dictionary.  
 
 ## Usage Examples
