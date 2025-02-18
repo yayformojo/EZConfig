@@ -25,7 +25,7 @@ mycfg.write('server_name', 'localhost')
 The write() method also returns the value:
 ```python
 server = mycfg.write('server_name','localhost')
-# server will be 'localhost'
+# Variable 'server' is assigned 'localhost', so you can assign and write the config all at once
 ```
 
 <br>
@@ -48,12 +48,6 @@ _By default a Null key will return **None**._<br>
 ```python
 mycfg_dict = {}
 mycfg_dict = mycfg.read_all()
-```
-<br>
-
-### _Print_ the entire config, including modified timestamps (for debugging)
-```python
-mycfg.read_all('p') 
 ```
 <br>
 
