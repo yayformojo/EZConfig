@@ -41,19 +41,19 @@ port = mycfg.read('port_number', value_if_null='error')
 update_interval = mycfg.read('update_interval',60)
 # Returns 60 as a default interval if none exists
 ```
-_This returns the value of the key specified. By default a Null key will return **None**._<br>
+_By default a Null key will return **None**._<br>
 <br>
 
 ### Read the entire config into a dictionary
 ```python
 mycfg_dict = {}
-mycfg_dict = mycfg.readall()
+mycfg_dict = mycfg.read_all()
 ```
 <br>
 
 ### _Print_ the entire config, including modified timestamps (for debugging)
 ```python
-mycfg.readall('p') 
+mycfg.read_all('p') 
 ```
 <br>
 
@@ -67,28 +67,28 @@ mycfg.delete('mykey')
 ```
 <br>
 
-### Querying the config database directly
+### Querying the config database directly with SQL
 ```python
-mycfg.query("SELECT key, value, comment, modified FROM config WHERE key='server';")
-# returns 'server_name', 'localhost', 'comment', 'yyyy-mm-dd HH:MM:SS'
+mycfg.query("SELECT key, value, modified FROM config WHERE key='server_name';")
+# returns tuple ('server_name', 'localhost', 'yyyy-mm-dd HH:MM:SS')
 ```
 <br>
 
-### Backup the entire config database file:
+### Backup the entire config database file
 ```python
 mycfg.backup('mycfg_backup.db')
 # saves the current config into a sqlite database called 'mycfg_backup.db'
 ```
 <br>
 
-### dbname property
+### Database file name property
 If you need the name of the config database file, the property 'dbname' can be used
 ```python
 mydb = mycfg.dbname
 ```
 <br>
 
-## Methods in the EZConfig class:
+## Summary of methods in the EZConfig class
 
 | Method                |Comments |
 |-----------------------|---------|
